@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './app.jsx';
+import app from './app.jsx';
 import './index.css'; // Esta línea activa todos los colores y efectos visuales
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -8,4 +8,3 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <app />
   </React.StrictMode>,
 );
-
