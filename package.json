@@ -1,22 +1,14 @@
-{
-  "name": "softcon-wm-constru",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
+"dependencies": {
     "@supabase/supabase-js": "^2.39.0",
-    "jspdf": "^2.5.1",
-    "jspdf-autotable": "^3.8.1",
     "lucide-react": "^0.294.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "recharts": "^2.10.3",
-    "decimal.js-light": "^2.5.1"
+    "decimal.js-light": "^2.5.1",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.8.1",
+    "clsx": "^2.1.0",
+    "tailwind-merge": "^2.2.1"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.1",
@@ -25,4 +17,3 @@
     "postcss": "^8.4.35",
     "autoprefixer": "^10.4.17"
   }
-}
