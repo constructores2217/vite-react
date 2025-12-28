@@ -245,7 +245,7 @@ export default function App() {
   // CSV Import with error handling
   const handleCSVImport = async (e) => {
     try {
-      const file = e. target.files.0;
+      const file = e. target.files;
       if (!file) return;
       
       const formData = new FormData();
