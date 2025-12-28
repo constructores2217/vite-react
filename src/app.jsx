@@ -41,7 +41,7 @@ function generarReportePDF(proyectoSeleccionado) {
   doc.text("Resumen de Actividades y Stock", 15, doc.lastAutoTable.finalY + 15);
   doc.setFontSize(8);
   doc.text("Este documento es generado automáticamente por el Cerebro WM v1.0", 15, 285);
-  doc.save(`Reporte_WM_${proyectoSeleccionado.nombre}_${fecha}. pdf`);
+  doc.save(`Reporte_WM_${proyectoSeleccionado.nombre}_${fecha}.pdf`);
 }
 
 function generarReporteEjecutivo(proyectos, periodo = 'semanal') {
@@ -110,7 +110,7 @@ function StockViewer() {
         setLoadingStock(false);
         return;
       }
-      const { data, error } = await supabase. from('inventario_materiales').select('*, proyectos(nombre)');
+      const { data, error } = await supabase. from('inventario_materiales').select('*,proyectos(nombre)');
       if (! error) setInventario(data || []);
       setLoadingStock(false);
     };
@@ -118,7 +118,6 @@ function StockViewer() {
   }, []);
 
   if (loadingStock) return <p className="text-[10px] animate-pulse">Sincronizando Bodegas...</p>;
-
   return (
     <div className="bg-[#111] p-8 rounded-[2.5rem] border border-white/5 mt-8">
       <h3 className="text-[11px] font-black uppercase text-[#facc15] tracking-[0.3em] mb-6 italic flex items-center gap-3">
@@ -153,7 +152,7 @@ function NotificacionesPanel() {
   const [alertas, setAlertas] = useState([]);
   useEffect(() => {
     if (! supabase) return;
-    const sub = supabase.channel('alertas-vivas').on('postgres_changes', { event: 'INSERT', schema: 'public', table:  'notificaciones' }, payload => {
+    const sub = supabase.channel('alertas-vivas').on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'notificaciones' }, payload => {
       setAlertas(prev => [payload.new, ...prev]);
     }).subscribe();
     return () => supabase.removeChannel(sub);
