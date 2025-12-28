@@ -174,8 +174,7 @@ const generarReportePDF = (proyectoSeleccionado) => {
   // Descargar archivo
   doc.save(`Reporte_WM_${proyectoSeleccionado.nombre}_${fecha}.pdf`);
 };
-
-function generarReporteEjecutivo(proyectos, periodo = 'semanal') 
+function generarReporteEjecutivo(proyectos, periodo = 'semanal'){ 
   const doc = new jsPDF();
   const fecha = new Date().toLocaleDateString();
 
@@ -497,4 +496,5 @@ function NotificacionesPanel() {
       ))}
     </div>
   );
+
 }
