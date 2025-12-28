@@ -6,10 +6,57 @@ import { AreaChart, Area, ResponsiveContainer } from 'recharts';
 import { LayoutGrid, HardHat, Truck, FileText, AlertCircle, Database, Wallet, FileUp, CheckCircle2 } from 'lucide-react';
 
 // Supabase configuration
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || '';
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
-const supabase = SUPABASE_URL && SUPABASE_ANON_KEY ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseKey = import.meta.env.VITE_SUPABASE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
+function App() {
+  const [datos, setDatos] = useState({ flujoCaja: 0, alertas: 3 });
+
+  useEffect(() => {
+    async function cargarProyectos() {
+      // Esta línea busca la columna presupuesto_total que creaste en Supabase
+      const { data, error } = await supabase
+        .from('proyectos')
+        .select('presupuesto_total');
+      if (data && data.length > 0) {
+        // Sumamos todos los presupuestos para mostrar el Flujo de Caja total
+        const total = data.reduce((acc, curr) => acc + (curr.presupuesto_total || 0), 0);
+        setDatos(prev => ({ ...prev, flujoCaja: total }));
+      }
+    }
+    cargarProyectos();
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-black text-white p-8">
+      <header className="flex justify-between items-center mb-12">
+        <div>
+          <h1 className="text-3xl font-bold text-yellow-400">WM CONSTRUCTORA</h1>
+          <p className="text-gray-400 text-xs tracking-widest">CEREBRO DE CONTROL CENTRAL</p>
+        </div>
+      </header>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div className="bg-zinc-900/50 border border-zinc-800 p-6 rounded-3xl">
+          <p className="text-gray-400 text-xs font-bold mb-2 uppercase">Flujo de Caja</p>
+          <p className="text-4xl font-bold">${datos.flujoCaja.toLocaleString()}</p>
+        </div>
+        
+        <div className="bg-zinc-900/50 border border-zinc-800 p-6 rounded-3xl">
+          <p className="text-gray-400 text-xs font-bold mb-2 uppercase">Alertas</p>
+          <p className="text-4xl font-bold text-red-500">{datos.alertas} Activas</p>
+        </div>
+      </div>
+
+      <div className="bg-zinc-900/50 border border-zinc-800 p-12 rounded-3xl h-96 flex items-center justify-center">
+        <p className="text-gray-500 italic">Panel de Avance Físico vs Financiero conectado...</p>
+      </div>
+    </div>
+  );
+}
+
+export default App;
 // --- AUXILIARY FUNCTIONS ---
 function generarReportePDF(proyectoSeleccionado) {
   const doc = new jsPDF();
