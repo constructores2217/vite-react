@@ -190,7 +190,7 @@ function ManualUsuario() {
           <div className="space-y-6 text-sm">
             <div>
               <h4 className="font-bold text-white/80 mb-2">Vista Administrador</h4>
-              <p className="text-white/60">Accede al dashboard completo con KPIs, gráficos de avance y estado de inventario. Puedes generar reportes PDF por proyecto o reportes ejecutivos semanales/mensuales.</p>
+              <p className="text-white/60">Accede al dashboard completo con KPIs, gráficos de avance y estado de inventario. Puedes generar reportes PDF por proyecto o reportes ejecutivos semanales/mensuales consolidados de todos los proyectos activos.</p>
             </div>
             
             <div>
@@ -271,9 +271,24 @@ export default function App() {
           <p className="text-[10px] text-white/40 uppercase tracking-[0.3em]">Cerebro de Control Central</p>
         </div>
         <div className="flex gap-4">
-          <button onClick={() => setUserRole('admin')} className={`px-4 py-2 rounded-xl text-[10px] font-bold ${userRole === 'admin' ? 'bg-[#facc15] text-black' : 'bg-white/5'}`}>ADMINISTRADOR</button>
-          <button onClick={() => setUserRole('campo')} className={`px-4 py-2 rounded-xl text-[10px] font-bold ${userRole === 'campo' ? 'bg-[#facc15] text-black' : 'bg-white/5'}`}>CAMPO</button>
-          <button onClick={() => setUserRole('proveedor')} className={`px-4 py-2 rounded-xl text-[10px] font-bold ${userRole === 'proveedor' ? 'bg-[#facc15] text-black' : 'bg-white/5'}`}>PROVEEDOR</button>
+          <button 
+            onClick={() => setUserRole('admin')} 
+            className={`px-4 py-2 rounded-xl text-[10px] font-bold ${userRole === 'admin' ? 'bg-[#facc15] text-black' : 'bg-white/5'}`}
+          >
+            ADMINISTRADOR
+          </button>
+          <button 
+            onClick={() => setUserRole('campo')} 
+            className={`px-4 py-2 rounded-xl text-[10px] font-bold ${userRole === 'campo' ? 'bg-[#facc15] text-black' : 'bg-white/5'}`}
+          >
+            CAMPO
+          </button>
+          <button 
+            onClick={() => setUserRole('proveedor')} 
+            className={`px-4 py-2 rounded-xl text-[10px] font-bold ${userRole === 'proveedor' ? 'bg-[#facc15] text-black' : 'bg-white/5'}`}
+          >
+            PROVEEDOR
+          </button>
         </div>
       </nav>
 
