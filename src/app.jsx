@@ -174,15 +174,37 @@ const generarReportePDF = (proyectoSeleccionado) => {
   // Descargar archivo
   doc.save(`Reporte_WM_${proyectoSeleccionado.nombre}_${fecha}.pdf`);
 };
-function generarReporteEjecutivo(proyectos, periodo = 'semanal'){ 
-  const doc = new jsPDF();
-  const fecha = new Date().toLocaleDateString();
+function generarReporteEjecutivo(proyectos, periodo = 'semanal') { 
+    const doc = new jsPDF();
+    const fecha = new Date().toLocaleDateString();
 
-  // Cargar logo y continuar con el PDF
-  const logoImg = new Image();
-  logoImg.src = process.env.PUBLIC_URL + '/logo.png'; // Asegúrate de tener logo.png en /public
-  logoImg.onload = function() {
-    // Encabezado visual corporativo con logo
+    const logoImg = new Image();
+    // En Vite usamos esta ruta directa. El logo debe estar en /public/logo.png
+    logoImg.src = '/logo.png'; 
+
+    logoImg.onload = function() {
+        // --- INICIO DEL DISEÑO DEL PDF ---
+        doc.setFillColor(250, 204, 21); // Amarillo WM
+        doc.rect(0, 0, 210, 30, 'F');
+        
+        // Añadir Logo
+        doc.addImage(logoImg, 'PNG', 10, 6, 18, 18);
+        
+        doc.setTextColor(0, 0, 0);
+        doc.setFontSize(20);
+        doc.text('WM CONSTRUCTORA', 32, 18);
+        
+        doc.setFontSize(12);
+        const textoPeriodo = periodo === 'mensual' ? 'Mensual' : 'Semanal';
+        doc.text('Reporte Ejecutivo ' + textoPeriodo, 32, 26);
+
+        // ... (Aquí va el resto de tu lógica de tablas para 'proyectos')
+
+        doc.save(`Reporte_Ejecutivo_${periodo}.pdf`);
+        // --- FIN DEL DISEÑO DEL PDF ---
+    }; 
+} // <--- ESTA LLAVE CIERRA TODO. No debe haber más código de diseño debajo de ella.
+  
     doc.setFillColor(250, 204, 21); // Amarillo WM
     doc.rect(0, 0, 210, 30, 'F');
     doc.addImage(logoImg, 'PNG', 10, 6, 18, 18); // Logo en la esquina superior izquierda
@@ -498,3 +520,4 @@ function NotificacionesPanel() {
   );
 
 }
+
