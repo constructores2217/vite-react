@@ -8,7 +8,6 @@ export default {
     extend: {
       colors: {
         'wm-yellow': '#facc15',
-        'wm-black': '#050505',
       }
     },
   },
