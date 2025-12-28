@@ -190,7 +190,7 @@ function ManualUsuario() {
           <div className="space-y-6 text-sm">
             <div>
               <h4 className="font-bold text-white/80 mb-2">Vista Administrador</h4>
-              <p className="text-white/60">Accede al dashboard completo con KPIs, gráficos de avance y estado de inventario. Puedes generar reportes PDF por proyecto o reportes ejecutivos semanales/mensuales consolidados de todos los proyectos activos.</p>
+              <p className="text-white/60">Accede al dashboard completo con KPIs, gráficos de avance y estado de inventario. Puedes generar reportes PDF por proyecto o reportes ejecutivos semanales.</p>
             </div>
             
             <div>
@@ -215,7 +215,7 @@ function ManualUsuario() {
 }
 
 // --- MAIN APP COMPONENT ---
-export default function app() {
+export default function App() {
   const [userRole, setUserRole] = useState('admin');
   const [proyectos, setProyectos] = useState([]);
   const [loading, setLoading] = useState(true);
