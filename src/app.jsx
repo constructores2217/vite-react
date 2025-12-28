@@ -29,11 +29,11 @@ function generarReportePDF(proyectoSeleccionado) {
   doc.autoTable({
     startY: 65,
     head: [['Concepto', 'Monto Presupuestado', 'Gasto Real', 'Eficiencia']],
-    body:  [[
+    body: [[
       'Financiero',
       `$${proyectoSeleccionado.presupuesto_total || 0}`,
       `$${proyectoSeleccionado.gasto_real_acumulado || 0}`,
-      `${((proyectoSeleccionado. gasto_real_acumulado / proyectoSeleccionado. presupuesto_total) * 100 || 0).toFixed(1)}%`
+      `${((proyectoSeleccionado.gasto_real_acumulado / proyectoSeleccionado.presupuesto_total) * 100 || 0).toFixed(1)}%`
     ]],
     theme: 'striped',
     headStyles: { fillColor: [139, 92, 246] }
@@ -62,7 +62,7 @@ function generarReporteEjecutivo(proyectos, periodo = 'semanal') {
     const tableRows = proyectos.map(p => [
       p.nombre || 'Sin nombre',
       `${p.porcentaje_avance_fisico || 0}%`,
-      `$${p.gasto_real_acumulado?. toLocaleString() || 0}`,
+      `$${p.gasto_real_acumulado?.toLocaleString() || 0}`,
       p.estado || 'Activo'
     ]);
     doc.autoTable({
@@ -83,7 +83,7 @@ function generarReporteEjecutivo(proyectos, periodo = 'semanal') {
     doc.setFontSize(20);
     doc.text('WM CONSTRUCTORA', 15, 18);
     const tableRows = proyectos.map(p => [
-      p. nombre || 'Sin nombre',
+      p.nombre || 'Sin nombre',
       `${p.porcentaje_avance_fisico || 0}%`,
       `$${p.gasto_real_acumulado?.toLocaleString() || 0}`,
       p.estado || 'Activo'
@@ -93,7 +93,7 @@ function generarReporteEjecutivo(proyectos, periodo = 'semanal') {
       head: [['Proyecto', 'Avance', 'Gastado', 'Estado']],
       body: tableRows,
       theme: 'striped',
-      headStyles: { fillColor:  [250, 204, 21], textColor: [0, 0, 0] }
+      headStyles: { fillColor: [250, 204, 21], textColor: [0, 0, 0] }
     });
     doc.save(`Reporte_WM_${periodo}_${fecha}.pdf`);
   };
@@ -106,12 +106,12 @@ function StockViewer() {
 
   useEffect(() => {
     const fetchInventario = async () => {
-      if (! supabase) {
+      if (!supabase) {
         setLoadingStock(false);
         return;
       }
-      const { data, error } = await supabase. from('inventario_materiales').select('*,proyectos(nombre)');
-      if (! error) setInventario(data || []);
+      const { data, error } = await supabase.from('inventario_materiales').select('*,proyectos(nombre)');
+      if (!error) setInventario(data || []);
       setLoadingStock(false);
     };
     fetchInventario();
@@ -123,8 +123,8 @@ function StockViewer() {
       <h3 className="text-[11px] font-black uppercase text-[#facc15] tracking-[0.3em] mb-6 italic flex items-center gap-3">
         <Database size={16}/> Estado de Bodegas e Inventario
       </h3>
-      <div className="grid grid-cols-1 md: grid-cols-2 gap-4">
-        {inventario. map((item) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {inventario.map((item) => (
           <div key={item.id} className="p-4 bg-white/5 rounded-2xl border border-white/5">
             <p className="text-[9px] font-black text-white/30 uppercase tracking-widest">{item.proyectos?.nombre}</p>
             <h4 className="text-sm font-bold">{item.nombre_material || item.codigo_sku}</h4>
@@ -151,7 +151,7 @@ function KpiCard({ title, value, icon, color = "text-white" }) {
 function NotificacionesPanel() {
   const [alertas, setAlertas] = useState([]);
   useEffect(() => {
-    if (! supabase) return;
+    if (!supabase) return;
     const sub = supabase.channel('alertas-vivas').on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'notificaciones' }, payload => {
       setAlertas(prev => [payload.new, ...prev]);
     }).subscribe();
@@ -189,17 +189,17 @@ function ManualUsuario() {
           <div className="space-y-6 text-sm">
             <div>
               <h4 className="font-bold text-white/80 mb-2">Vista Administrador</h4>
-              <p className="text-white/60">Accede al dashboard completo con KPIs, gráficos de avance y estado de inventario.  Puedes generar reportes PDF por proyecto o reportes ejecutivos semanales.</p>
+              <p className="text-white/60">Accede al dashboard completo con KPIs, gráficos de avance y estado de inventario. Puedes generar reportes PDF por proyecto o reportes ejecutivos semanales.</p>
             </div>
             
             <div>
               <h4 className="font-bold text-white/80 mb-2">Vista Campo</h4>
-              <p className="text-white/60">Registra y visualiza las actividades en terreno. Marca tareas completadas en tiempo real. </p>
+              <p className="text-white/60">Registra y visualiza las actividades en terreno. Marca tareas completadas en tiempo real.</p>
             </div>
             
             <div>
               <h4 className="font-bold text-white/80 mb-2">Vista Proveedor</h4>
-              <p className="text-white/60">Ingresa materiales recibidos con código SKU, cantidad y proyecto asociado. </p>
+              <p className="text-white/60">Ingresa materiales recibidos con código SKU, cantidad y proyecto asociado.</p>
             </div>
             
             <div>
@@ -243,16 +243,16 @@ export default function App() {
 
   // CSV Import with error handling
   const handleCSVImport = async (e) => {
-  try {
-    const file = e.target.files[0];
-    if (!file) return;
+    try {
+      const file = e.target.files[0];
+      if (!file) return;
       
       const formData = new FormData();
       formData.append('archivo', file);
       
       // Note: RAILWAY_API would need to be configured in environment variables
       // For now, this is a placeholder for future implementation
-      alert("Función de importación CSV:  Requiere configuración de API backend");
+      alert("Función de importación CSV: Requiere configuración de API backend");
     } catch (error) {
       console.error("Error importing CSV:", error);
       alert("Error al importar archivo CSV");
@@ -272,7 +272,7 @@ export default function App() {
         <div className="flex gap-4">
           <button 
             onClick={() => setUserRole('admin')} 
-            className={`px-4 py-2 rounded-xl text-[10px] font-bold ${userRole === 'admin' ?  'bg-[#facc15] text-black' : 'bg-white/5'}`}
+            className={`px-4 py-2 rounded-xl text-[10px] font-bold ${userRole === 'admin' ? 'bg-[#facc15] text-black' : 'bg-white/5'}`}
           >
             ADMINISTRADOR
           </button>
@@ -322,7 +322,7 @@ export default function App() {
               </div>
             </div>
           </div>
-          <div className="mt-8 grid grid-cols-1 md: grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {proyectos.map((proyecto) => (
               <div key={proyecto.id} className="bg-[#222] p-4 rounded-2xl flex items-center justify-between">
                 <div>
@@ -346,7 +346,7 @@ export default function App() {
         <div className="bg-[#111] p-8 rounded-[2.5rem] border border-white/5">
           <h2 className="font-black text-xl mb-6 flex items-center gap-3"><HardHat className="text-[#facc15]" /> ACTIVIDADES DE CAMPO</h2>
           <div className="space-y-4">
-            {["Cimentación", "Levantamiento de Muros", "Instalación Eléctrica"]. map((task, i) => (
+            {["Cimentación", "Levantamiento de Muros", "Instalación Eléctrica"].map((task, i) => (
               <div key={i} className="flex items-center justify-between p-6 bg-white/5 rounded-2xl hover:bg-white/10 transition-colors cursor-pointer group">
                 <span className="font-bold text-sm">{task}</span>
                 <CheckCircle2 className="text-white/20 group-hover:text-[#facc15] transition-colors" />
@@ -363,7 +363,7 @@ export default function App() {
             <input className="w-full bg-black border border-white/10 p-4 rounded-xl text-sm" placeholder="Código de Producto (SKU)" />
             <input type="number" className="w-full bg-black border border-white/10 p-4 rounded-xl text-sm" placeholder="Cantidad" />
             <select className="w-full bg-black border border-white/10 p-4 rounded-xl text-sm text-white/50">
-              <option>Seleccionar Proyecto... </option>
+              <option>Seleccionar Proyecto...</option>
               {proyectos.map(p => <option key={p.id}>{p.nombre}</option>)}
             </select>
             <button className="w-full bg-[#facc15] text-black font-black p-4 rounded-xl uppercase tracking-widest text-xs mt-4">Enviar al Cerebro WM</button>
