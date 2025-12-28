@@ -215,7 +215,7 @@ function ManualUsuario() {
 }
 
 // --- MAIN APP COMPONENT ---
-export default function App() {
+export default function app() {
   const [userRole, setUserRole] = useState('admin');
   const [proyectos, setProyectos] = useState([]);
   const [loading, setLoading] = useState(true);
