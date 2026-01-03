@@ -28,9 +28,10 @@ SOFTCON-MYS-CONSTRU-WM es un sistema integral de gestión de proyectos de constr
 
 1. Clonar el repositorio:
 ```bash
-git clone https://github.com/tu-usuario/softcon-mys-constru-wm.git
+git clone https://github.com/[TU-USUARIO]/softcon-mys-constru-wm.git
 cd softcon-mys-constru-wm
 ```
+> **Nota**: Reemplaza `[TU-USUARIO]` con tu nombre de usuario o organización de GitHub.
 
 2. Instalar dependencias:
 ```bash
@@ -69,9 +70,10 @@ Para inicializar un nuevo repositorio desde cero:
 git init
 git add .
 git commit -m "Lanzamiento oficial SOFTCON-MYS-CONSTRU-WM"
-git remote add origin https://github.com/tu-usuario/softcon-mys-constru-wm.git
+git remote add origin https://github.com/[TU-USUARIO]/softcon-mys-constru-wm.git
 git push -u origin main
 ```
+> **Nota**: Reemplaza `[TU-USUARIO]` con tu nombre de usuario o organización de GitHub.
 
 ## 📊 Estructura de la Base de Datos
 
